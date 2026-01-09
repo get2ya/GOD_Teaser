@@ -16,8 +16,11 @@
             bgGroup.classList.add('phase2');
         }, 1500);
 
-        // 영상 재생 (3초 후)
+        // 영상 재생 (3초 후) + Phase 3: 전체 블러
         setTimeout(function() {
+            bgGroup.classList.remove('phase2');
+            bgGroup.classList.add('phase3');
+
             video.play().then(function() {
                 video.classList.add('playing');
             }).catch(function(e) {
