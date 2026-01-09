@@ -22,6 +22,8 @@ html, body {
     z-index: 0;
     opacity: 0;
     transition: opacity 0.5s ease;
+    perspective: 1000px;
+    transform-style: preserve-3d;
 }
 
 .background-group.visible {
@@ -38,17 +40,22 @@ html, body {
     align-items: center;
     justify-content: center;
     pointer-events: none;
+    transform-style: preserve-3d;
 }
 
 /* background.jpg */
 .bg-photo {
     z-index: 0;
     background: url('../resource/background.jpg') center center / cover no-repeat;
+    transform: translateZ(-100px) scale(1.1);
+    filter: blur(8px);
+    transition: filter 0.8s ease;
 }
 
 /* big_change.png */
 .bg-change {
     z-index: 1;
+    transform: translateZ(-50px) scale(1.05);
 }
 
 .bg-change img {
@@ -56,11 +63,14 @@ html, body {
     height: auto;
     max-width: none;
     opacity: 0.6;
+    filter: blur(8px);
+    transition: filter 0.8s ease;
 }
 
 /* big_2.png */
 .bg-two {
     z-index: 2;
+    transform: translateZ(0px);
 }
 
 .bg-two img {
@@ -68,7 +78,34 @@ html, body {
     width: auto;
     max-width: none;
     opacity: 0.15;
-    filter: brightness(1.2) contrast(1.1);
+    filter: blur(8px) brightness(1.2) contrast(1.1);
+    transition: filter 0.8s ease;
+}
+
+/* ========== 랙포커스 Phase 1: background + big_2 선명, big_change 블러 ========== */
+.background-group.phase1 .bg-photo {
+    filter: blur(0px);
+}
+
+.background-group.phase1 .bg-two img {
+    filter: blur(0px) brightness(1.2) contrast(1.1);
+}
+
+.background-group.phase1 .bg-change img {
+    filter: blur(6px);
+}
+
+/* ========== 랙포커스 Phase 2: big_change 선명, 나머지 블러 ========== */
+.background-group.phase2 .bg-change img {
+    filter: blur(0px);
+}
+
+.background-group.phase2 .bg-photo {
+    filter: blur(4px);
+}
+
+.background-group.phase2 .bg-two img {
+    filter: blur(4px) brightness(1.2) contrast(1.1);
 }
 
 /* ========== 로고 컨테이너 ========== */

@@ -1,4 +1,4 @@
-// 영상 제어 및 네이버 버튼
+// 영상 제어 및 랙포커스 연출
 (function() {
     const naverBtn = document.querySelector('.naver-btn');
     const video = document.querySelector('.logo-animation');
@@ -7,12 +7,16 @@
     if (!video) return;
 
     function startSequence() {
-        // 1. 배경 페이드인 먼저
-        if (bgGroup) {
-            bgGroup.classList.add('visible');
-        }
+        // Phase 1: 페이드인 + background/big_2 포커스
+        bgGroup.classList.add('visible', 'phase1');
 
-        // 2. 배경 페이드인 끝나면 (0.5초 후) 영상 재생
+        // Phase 2: big_change 포커스 (1.5초 후)
+        setTimeout(function() {
+            bgGroup.classList.remove('phase1');
+            bgGroup.classList.add('phase2');
+        }, 1500);
+
+        // 영상 재생 (3초 후)
         setTimeout(function() {
             video.play().then(function() {
                 video.classList.add('playing');
@@ -20,7 +24,7 @@
                 console.log('Video play error:', e);
                 video.classList.add('playing');
             });
-        }, 500);
+        }, 3000);
     }
 
     // 영상 프리로드 완료 후 시퀀스 시작
