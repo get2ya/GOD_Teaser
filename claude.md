@@ -175,3 +175,44 @@ z-index: 0    → background.jpg
   - 5.5s: 카메라 무빙 종료, 마우스 패럴랙스 활성화
 - 핸드헬드 카메라 떨림 (sin/cos 조합)
 - easeInOutCubic 이징 함수
+
+---
+
+## PAGE02 - 영상 버전
+
+### 구조
+- `PAGE02/index.html` - 영상 버전 HTML
+- `PAGE02/style.css` - 스타일시트
+- `PAGE02/script.js` - 영상 제어 + 패럴랙스
+
+### 연출 순서
+1. **Phase 1** (0~1.5s): 배경 페이드인 + background/big_2 포커스, big_change 블러
+2. **Phase 2** (1.5~3s): big_change 포커스, 나머지 블러
+3. **Phase 3** (3s~): 영상 재생, 전체 블러
+4. **영상 종료**: 네이버 버튼 표시 + 마우스 패럴랙스 활성화
+
+### 3D 배경 설정
+- perspective: 1000px
+- bg-photo: translateZ(-100px) scale(1.1)
+- bg-change: translateZ(-50px) scale(1.05)
+- bg-two: translateZ(0px)
+
+### 마우스 패럴랙스 (영상 종료 후)
+- bg-photo depth: 8%
+- bg-change depth: 15%
+- bg-two depth: 25%
+- 최대 회전 각도: 8도
+
+### 영상
+- WebM (PC/Android): play_Anim_preserve.webm
+- MOV (iOS Safari): play_Anim_preserve.mov
+- 알파채널 투명 배경 지원
+
+---
+
+## PAGE03 - 심플 영상 버전
+
+### 구조
+- PAGE02와 동일하나 3D/패럴랙스 효과 없음
+- 영상 로드 후 바로 재생
+- 영상 종료 후 네이버 버튼 표시

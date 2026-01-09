@@ -22,13 +22,10 @@ html, body {
     z-index: 0;
     opacity: 0;
     transition: opacity 0.5s ease;
-    perspective: 1000px;
-    transform-style: preserve-3d;
 }
 
 .background-group.visible {
     opacity: 1;
-    transition: opacity 0.5s ease, transform 0.1s ease-out;
 }
 
 .bg-layer {
@@ -41,23 +38,19 @@ html, body {
     align-items: center;
     justify-content: center;
     pointer-events: none;
-    transform-style: preserve-3d;
 }
 
 /* background.jpg */
 .bg-photo {
     z-index: 0;
     background: url('../resource/background.jpg') center center / cover no-repeat;
-    transform: translateZ(-100px) scale(1.1);
     filter: blur(8px);
-    transition: filter 0.8s ease, transform 0.1s ease-out;
+    transition: filter 0.8s ease;
 }
 
 /* big_change.png */
 .bg-change {
     z-index: 1;
-    transform: translateZ(-50px) scale(1.05);
-    transition: transform 0.1s ease-out;
 }
 
 .bg-change img {
@@ -72,8 +65,6 @@ html, body {
 /* big_2.png */
 .bg-two {
     z-index: 2;
-    transform: translateZ(0px);
-    transition: transform 0.1s ease-out;
 }
 
 .bg-two img {
