@@ -5,15 +5,23 @@
 
     if (!video) return;
 
-    // 영상이 재생 가능할 때까지 대기 후 재생
-    video.addEventListener('canplaythrough', function() {
-        video.play();
-    }, { once: true });
+    function startVideo() {
+        video.play().then(function() {
+            video.classList.add('playing');
+        }).catch(function(e) {
+            console.log('Video play error:', e);
+            // 자동재생 차단된 경우에도 영상 표시
+            video.classList.add('playing');
+        });
+    }
 
-    // 재생 시작하면 영상 표시
-    video.addEventListener('playing', function() {
-        video.classList.add('playing');
-    }, { once: true });
+    // 이미 로드됐으면 바로 재생
+    if (video.readyState >= 3) {
+        startVideo();
+    } else {
+        // 아직 로드 안됐으면 이벤트 대기
+        video.addEventListener('canplaythrough', startVideo, { once: true });
+    }
 
     // 영상 끝나면 네이버 버튼 표시
     video.addEventListener('ended', function() {
