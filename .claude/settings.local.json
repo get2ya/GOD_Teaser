@@ -25,7 +25,8 @@
       "Bash(ffprobe:*)",
       "Bash(powershell -Command \"Add-Type -AssemblyName System.Windows.Forms; $shell = New-Object -ComObject Shell.Application; $folder = $shell.NameSpace\\(''d:\\\\004 STUDY\\\\260108_GOD_Teaser_Page\\\\resource\\\\MV''\\); $file = $folder.ParseName\\(''play_Anim_preserve.webm''\\); $folder.GetDetailsOf\\($file, 316\\)\")",
       "Bash(mediainfo:*)",
-      "Bash(exiftool:*)"
+      "Bash(exiftool:*)",
+      "Bash(git reset:*)"
     ]
   }
 }
