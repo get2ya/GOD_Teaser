@@ -1,0 +1,95 @@
+/* ========== 기본 리셋 ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000000;
+}
+
+/* ========== 영상 컨테이너 ========== */
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* ========== 배경 영상 ========== */
+.background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+    pointer-events: none;
+}
+
+.background-video.active {
+    opacity: 1;
+}
+
+/* ========== 네이버 라운지 버튼 ========== */
+.top-naver-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.top-naver-btn.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.naver-btn-img {
+    height: 48px;
+    width: auto;
+    display: block;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.top-naver-btn:hover .naver-btn-img {
+    transform: scale(1.05);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+}
+
+/* ========== 반응형 ========== */
+@media (max-width: 768px) {
+    .top-naver-btn {
+        top: 15px;
+        right: 15px;
+    }
+
+    .naver-btn-img {
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-naver-btn {
+        top: 10px;
+        right: 10px;
+    }
+
+    .naver-btn-img {
+        height: 32px;
+    }
+}

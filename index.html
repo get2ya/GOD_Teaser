@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE GOD OF HIGHSCHOOL CHANGE - 티저</title>
+    <link rel="icon" type="image/x-icon" href="./resource/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- 우측 상단 네이버 라운지 버튼 -->
+    <a href="https://game.naver.com/lounge/GOD_highschool/home" target="_blank" class="top-naver-btn">
+        <img src="./resource/naverbttn.png" alt="네이버 라운지" class="naver-btn-img">
+    </a>
+
+    <!-- 영상 컨테이너 -->
+    <div class="video-container">
+        <!-- First 영상 (1회 재생) -->
+        <video id="firstVideo" class="background-video active" muted playsinline>
+            <source src="./resource/MV/first_mv.mp4" type="video/mp4">
+        </video>
+
+        <!-- Replay 영상 (무한 반복) -->
+        <video id="replayVideo" class="background-video" muted loop playsinline>
+            <source src="./resource/MV/replay_mv.mp4" type="video/mp4">
+        </video>
+    </div>
+</body>
+</html>
