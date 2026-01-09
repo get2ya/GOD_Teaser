@@ -80,8 +80,10 @@ html, body {
 }
 
 .logo-animation {
-    width: 100%;
-    height: auto;
+    min-width: 100vw;
+    min-height: 100vh;
+    object-fit: cover;
+    object-position: center center;
 }
 
 /* ========== 네이버 버튼 ========== */
