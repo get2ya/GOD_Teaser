@@ -19,8 +19,10 @@
       "Bash(git commit:*)",
       "Bash(dir:*)",
       "Bash(python -m http.server:*)",
-      "Bash(git rm:*)",
-      "Bash(git rebase:*)"
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "Bash(magick identify:*)",
+      "Bash(ffprobe:*)"
     ]
   }
 }
