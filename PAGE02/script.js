@@ -24,6 +24,7 @@
             bgGroup.classList.remove('phase2');
             bgGroup.classList.add('phase3');
 
+            mainVideo.classList.add('visible');
             mainVideo.play().catch(function() {});
         }, 3000);
     }
@@ -39,6 +40,7 @@
 
         // 1. 영상 종료 0.4초 전: 뒤에 있는 루프 영상 미리 재생
         if (timeLeft <= 0.4 && !loopStarted) {
+            loopVideo.classList.add('visible');
             loopVideo.play();
             loopStarted = true;
         }
@@ -63,7 +65,10 @@
 
     // 안전장치: 혹시라도 감시가 실패했을 때를 대비
     mainVideo.addEventListener('ended', function() {
-        if (!loopStarted) loopVideo.play();
+        if (!loopStarted) {
+            loopVideo.classList.add('visible');
+            loopVideo.play();
+        }
         mainVideo.classList.add('fade-out');
         if (naverBtn) {
             naverBtn.classList.add('visible');

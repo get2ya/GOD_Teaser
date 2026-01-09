@@ -136,19 +136,26 @@ html, body {
     object-fit: cover;
     object-position: center center;
     will-change: opacity;
+    opacity: 0;
 }
 
-/* 루프 영상 - 뒤에 배치, 항상 보임 */
+/* 루프 영상 - 뒤에 배치, 처음엔 숨김 */
 .loop-video {
     z-index: 1;
+}
+
+.loop-video.visible {
     opacity: 1;
 }
 
 /* 메인 영상 - 앞에 배치, 페이드아웃 */
 .main-video {
     z-index: 2;
-    opacity: 1;
     transition: opacity 0.2s linear;
+}
+
+.main-video.visible {
+    opacity: 1;
 }
 
 .main-video.fade-out {
