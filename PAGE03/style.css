@@ -86,16 +86,21 @@ html, body {
 }
 
 .logo-animation {
+    position: absolute;
     min-width: 100vw;
     min-height: 100vh;
     object-fit: cover;
     object-position: center center;
     opacity: 0;
-    transition: opacity 0.3s ease;
 }
 
 .logo-animation.playing {
     opacity: 1;
+}
+
+/* 루프 영상 - 메인 영상 뒤에 배치 */
+.loop-video {
+    z-index: -1;
 }
 
 /* ========== 네이버 버튼 ========== */
