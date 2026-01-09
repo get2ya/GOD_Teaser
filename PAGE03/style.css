@@ -84,6 +84,12 @@ html, body {
     min-height: 100vh;
     object-fit: cover;
     object-position: center center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.logo-animation.playing {
+    opacity: 1;
 }
 
 /* ========== 네이버 버튼 ========== */
