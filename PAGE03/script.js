@@ -7,6 +7,8 @@
 
     if (!mainVideo) return;
 
+    let loopReady = false;
+
     function startVideo() {
         // 배경 페이드인
         if (bgGroup) {
@@ -15,13 +17,19 @@
 
         mainVideo.play().then(function() {
             mainVideo.classList.add('playing');
-            // 메인 영상 재생 시작하면 루프 영상도 뒤에서 미리 재생
-            loopVideo.play();
         }).catch(function() {
             mainVideo.classList.add('playing');
-            loopVideo.play();
         });
     }
+
+    // 메인 영상 끝나기 0.5초 전에 루프 영상 준비
+    mainVideo.addEventListener('timeupdate', function() {
+        if (!loopReady && mainVideo.duration - mainVideo.currentTime <= 0.5) {
+            loopReady = true;
+            loopVideo.currentTime = 0;
+            loopVideo.play();
+        }
+    });
 
     // 메인 영상 끝나면 opacity 스위칭 (Gemini 방식)
     mainVideo.addEventListener('ended', function() {
