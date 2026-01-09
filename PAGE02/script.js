@@ -13,13 +13,13 @@
     let parallaxEnabled = false;
     let isVideoPlaying = false;
 
-    // 마우스 패럴랙스 설정
+    // 마우스 패럴랙스 설정 (강화)
     const parallaxConfig = {
-        bgPhoto: { depth: 0.02, rotate: true },
-        bgChange: { depth: 0.04, rotate: true },
-        bgTwo: { depth: 0.06, rotate: true }
+        bgPhoto: { depth: 0.08 },
+        bgChange: { depth: 0.15 },
+        bgTwo: { depth: 0.25 }
     };
-    const maxRotation = 3; // 최대 회전 각도 (도)
+    const maxRotation = 8; // 최대 회전 각도 (도)
 
     // 마우스 이동 핸들러
     function handleMouseMove(e) {
@@ -34,25 +34,25 @@
         const normalizedX = mouseX / centerX;
         const normalizedY = mouseY / centerY;
 
-        // 각 레이어 이동
+        // 각 레이어 이동 (강화된 움직임)
         if (bgPhoto) {
             const depth = parallaxConfig.bgPhoto.depth;
-            const moveX = normalizedX * depth * 100;
-            const moveY = normalizedY * depth * 100;
+            const moveX = normalizedX * depth * 150;
+            const moveY = normalizedY * depth * 150;
             bgPhoto.style.transform = `translateZ(-100px) scale(1.1) translate(${moveX}px, ${moveY}px)`;
         }
 
         if (bgChange) {
             const depth = parallaxConfig.bgChange.depth;
-            const moveX = normalizedX * depth * 100;
-            const moveY = normalizedY * depth * 100;
+            const moveX = normalizedX * depth * 150;
+            const moveY = normalizedY * depth * 150;
             bgChange.style.transform = `translateZ(-50px) scale(1.05) translate(${moveX}px, ${moveY}px)`;
         }
 
         if (bgTwo) {
             const depth = parallaxConfig.bgTwo.depth;
-            const moveX = normalizedX * depth * 100;
-            const moveY = normalizedY * depth * 100;
+            const moveX = normalizedX * depth * 150;
+            const moveY = normalizedY * depth * 150;
             bgTwo.style.transform = `translateZ(0px) translate(${moveX}px, ${moveY}px)`;
         }
 
