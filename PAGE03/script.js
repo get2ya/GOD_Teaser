@@ -1,27 +1,35 @@
-// 네이버 버튼 우아하게 표시
+// 영상 제어 및 네이버 버튼
 (function() {
     const naverBtn = document.querySelector('.naver-btn');
-    const logoImg = document.querySelector('.logo-animation');
+    const video = document.querySelector('.logo-animation');
 
-    if (!naverBtn) return;
+    if (!video) return;
 
-    function showNaverButton() {
-        naverBtn.classList.add('visible');
-    }
+    // 영상 끝나면 마지막 2초 구간 반복 재생
+    video.addEventListener('loadedmetadata', function() {
+        const duration = video.duration;
+        const loopStart = Math.max(0, duration - 2); // 마지막 2초 시작점
 
-    if (logoImg) {
-        // 이미지 로드 완료 확인
-        if (logoImg.complete) {
-            // 이미 로드됨 - 애니메이션 시간(약 10초) 후 버튼 표시
-            setTimeout(showNaverButton, 10000);
-        } else {
-            // 로드 대기
-            logoImg.addEventListener('load', function() {
-                setTimeout(showNaverButton, 10000);
-            });
-        }
-    } else {
-        // 로고 없으면 3초 후 표시
-        setTimeout(showNaverButton, 3000);
+        video.addEventListener('timeupdate', function() {
+            // 영상이 끝나면 loopStart로 돌아가서 반복
+            if (video.currentTime >= duration - 0.1) {
+                video.currentTime = loopStart;
+            }
+        });
+    });
+
+    // 네이버 버튼 표시
+    if (naverBtn) {
+        video.addEventListener('ended', function() {
+            naverBtn.classList.add('visible');
+        });
+
+        // ended 이벤트가 발생 안 할 수 있으므로 시간 기반으로도 체크
+        video.addEventListener('loadedmetadata', function() {
+            const duration = video.duration;
+            setTimeout(function() {
+                naverBtn.classList.add('visible');
+            }, (duration - 2) * 1000); // 루프 시작 전에 버튼 표시
+        });
     }
 })();
