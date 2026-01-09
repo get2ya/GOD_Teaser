@@ -7,7 +7,7 @@
 
     if (!mainVideo) return;
 
-    let loopReady = false;
+    let loopStarted = false;
 
     function startSequence() {
         // Phase 1: 페이드인 + background/big_2 포커스
@@ -24,39 +24,50 @@
             bgGroup.classList.remove('phase2');
             bgGroup.classList.add('phase3');
 
-            mainVideo.play().then(function() {
-                mainVideo.classList.add('playing');
-            }).catch(function() {
-                mainVideo.classList.add('playing');
-            });
+            mainVideo.play().catch(function() {});
         }, 3000);
     }
 
-    // 메인 영상 끝나기 0.5초 전에 루프 영상 준비
-    mainVideo.addEventListener('timeupdate', function() {
-        if (!loopReady && mainVideo.duration - mainVideo.currentTime <= 0.5) {
-            loopReady = true;
-            loopVideo.currentTime = 0;
-            loopVideo.play();
+    // requestAnimationFrame으로 프레임 단위 감시
+    function checkVideoTime() {
+        if (!mainVideo.duration) {
+            requestAnimationFrame(checkVideoTime);
+            return;
         }
-    });
 
-    // 메인 영상 끝나면 opacity 스위칭 (Gemini 방식)
-    mainVideo.addEventListener('ended', function() {
-        // requestAnimationFrame으로 정확한 타이밍에 전환
-        requestAnimationFrame(function() {
-            loopVideo.classList.add('playing');  // 루프 보이기
-            mainVideo.classList.remove('playing');  // 메인 숨기기
+        const timeLeft = mainVideo.duration - mainVideo.currentTime;
+
+        // 1. 영상 종료 0.4초 전: 뒤에 있는 루프 영상 미리 재생
+        if (timeLeft <= 0.4 && !loopStarted) {
+            loopVideo.play();
+            loopStarted = true;
+        }
+
+        // 2. 영상 종료 0.15초 전: 앞의 메인 영상 투명화 (ended 전에 미리!)
+        if (timeLeft <= 0.15) {
+            mainVideo.classList.add('fade-out');
 
             if (naverBtn) {
                 naverBtn.classList.add('visible');
             }
+            return;
+        }
 
-            // 전환 후 메인 영상 제거하여 메모리 절약
-            setTimeout(function() {
-                mainVideo.style.display = 'none';
-            }, 500);
-        });
+        requestAnimationFrame(checkVideoTime);
+    }
+
+    // 영상 재생 시작과 함께 감시 시작
+    mainVideo.addEventListener('play', function() {
+        requestAnimationFrame(checkVideoTime);
+    });
+
+    // 안전장치: 혹시라도 감시가 실패했을 때를 대비
+    mainVideo.addEventListener('ended', function() {
+        if (!loopStarted) loopVideo.play();
+        mainVideo.classList.add('fade-out');
+        if (naverBtn) {
+            naverBtn.classList.add('visible');
+        }
     });
 
     // 영상 프리로드 완료 후 시퀀스 시작

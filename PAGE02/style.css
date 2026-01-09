@@ -135,22 +135,24 @@ html, body {
     min-height: 100vh;
     object-fit: cover;
     object-position: center center;
-    opacity: 0;
-    transition: opacity 0.1s ease;
+    will-change: opacity;
 }
 
-.logo-animation.playing {
-    opacity: 1;
-}
-
-/* 루프 영상 - 메인 영상 뒤에 배치, 미리 재생 중 */
+/* 루프 영상 - 뒤에 배치, 항상 보임 */
 .loop-video {
-    z-index: -1;
-    opacity: 0;
+    z-index: 1;
+    opacity: 1;
 }
 
-.loop-video.playing {
+/* 메인 영상 - 앞에 배치, 페이드아웃 */
+.main-video {
+    z-index: 2;
     opacity: 1;
+    transition: opacity 0.2s linear;
+}
+
+.main-video.fade-out {
+    opacity: 0;
 }
 
 /* ========== 네이버 버튼 ========== */
