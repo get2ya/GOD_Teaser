@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx serve:*)",
+      "Bash(timeout:*)",
+      "Bash(ren:*)",
+      "Bash(ren logo_05.png logo_middle.png)",
+      "Bash(ren logo_02.png logo_change.png)",
+      "Bash(move logo_04.png logo_base.png)",
+      "Bash(move:*)",
+      "Bash(move logo_02.png logo_change.png)",
+      "Bash(npx http-server:*)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit: Video background teaser page\n\n- First video plays once on page load\n- Replay video loops infinitely after first ends\n- Naver button appears elegantly on replay start\n- Responsive design for all screen sizes\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nVideo background teaser page\n\n- First video plays once on page load\n- Replay video loops infinitely after first ends  \n- Naver button appears elegantly on replay start\n- Responsive video sizing with object-fit: contain\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit:*)",
+      "Bash(dir:*)",
+      "Bash(python -m http.server:*)",
+      "Bash(git rm:*)",
+      "Bash(git rebase:*)"
+    ]
+  }
+}

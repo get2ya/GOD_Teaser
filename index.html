@@ -3,28 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE GOD OF HIGHSCHOOL CHANGE - 티저</title>
-    <link rel="icon" type="image/x-icon" href="./resource/favicon.ico">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <title>GOD OF HIGHSCHOOL - 페이지 선택</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #fff;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+            font-size: 24px;
+            font-weight: 300;
+            color: #888;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        a {
+            display: block;
+            padding: 20px 60px;
+            background: #2a2a2a;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            text-align: center;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        a:hover {
+            background: #3a3a3a;
+            transform: translateY(-2px);
+        }
+
+        a:active {
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-    <!-- 우측 상단 네이버 라운지 버튼 -->
-    <a href="https://game.naver.com/lounge/GOD_highschool/home" target="_blank" class="top-naver-btn">
-        <img src="./resource/naverbttn.png" alt="네이버 라운지" class="naver-btn-img">
-    </a>
-
-    <!-- 영상 컨테이너 -->
-    <div class="video-container">
-        <!-- First 영상 (1회 재생) -->
-        <video id="firstVideo" class="background-video active" muted playsinline>
-            <source src="./resource/MV/first_mv.mp4" type="video/mp4">
-        </video>
-
-        <!-- Replay 영상 (무한 반복) -->
-        <video id="replayVideo" class="background-video" muted loop playsinline>
-            <source src="./resource/MV/replay_mv.mp4" type="video/mp4">
-        </video>
+    <h1>GOD OF HIGHSCHOOL CHANGE - 티저 페이지</h1>
+    <div class="links">
+        <a href="PAGE01/">PAGE01 - 심플 버전</a>
+        <a href="PAGE02/">PAGE02 - CSS 애니메이션 버전</a>
+        <a href="PAGE03/">PAGE03 - WebP 로고 버전</a>
     </div>
 </body>
 </html>
