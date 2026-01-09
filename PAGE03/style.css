@@ -144,7 +144,8 @@ html, body {
    ============================================ */
 @media (min-width: 601px) and (max-width: 1024px) {
     .bg-two img {
-        height: 90vh;
+        width: 100%;
+        height: auto;
     }
 
     .naver-btn {
