@@ -5,31 +5,32 @@
 
     if (!video) return;
 
-    // 영상 끝나면 마지막 2초 구간 반복 재생
+    let loopStart = 0;
+    let isLooping = false;
+
+    // 메타데이터 로드 시 루프 시작점 계산
     video.addEventListener('loadedmetadata', function() {
         const duration = video.duration;
-        const loopStart = Math.max(0, duration - 2); // 마지막 2초 시작점
-
-        video.addEventListener('timeupdate', function() {
-            // 영상이 끝나면 loopStart로 돌아가서 반복
-            if (video.currentTime >= duration - 0.1) {
-                video.currentTime = loopStart;
-            }
-        });
+        loopStart = Math.max(0, duration - 2); // 마지막 2초 시작점
+        console.log('Video duration:', duration, 'Loop start:', loopStart);
     });
 
-    // 네이버 버튼 표시
-    if (naverBtn) {
-        video.addEventListener('ended', function() {
-            naverBtn.classList.add('visible');
-        });
+    // 영상 끝나면 마지막 2초로 이동 후 반복
+    video.addEventListener('ended', function() {
+        isLooping = true;
+        video.currentTime = loopStart;
+        video.play();
 
-        // ended 이벤트가 발생 안 할 수 있으므로 시간 기반으로도 체크
-        video.addEventListener('loadedmetadata', function() {
-            const duration = video.duration;
-            setTimeout(function() {
-                naverBtn.classList.add('visible');
-            }, (duration - 2) * 1000); // 루프 시작 전에 버튼 표시
-        });
-    }
+        // 네이버 버튼 표시
+        if (naverBtn) {
+            naverBtn.classList.add('visible');
+        }
+    });
+
+    // 루프 중일 때 마지막 2초만 반복
+    video.addEventListener('timeupdate', function() {
+        if (isLooping && video.currentTime >= video.duration - 0.05) {
+            video.currentTime = loopStart;
+        }
+    });
 })();
