@@ -1,14 +1,13 @@
-// 영상 제어 및 네이버 버튼
+// 영상 제어 및 네이버 버튼 (Double Video Element Strategy)
 (function() {
     const naverBtn = document.querySelector('.naver-btn');
     const mainVideo = document.getElementById('main-video');
     const loopVideo = document.getElementById('loop-video');
     const bgGroup = document.querySelector('.background-group');
 
-    if (!mainVideo) return;
+    if (!mainVideo || !loopVideo) return;
 
-    let loopStarted = false;
-
+    // Video A (인트로/Main) 재생 시작
     function startVideo() {
         // 배경 페이드인
         if (bgGroup) {
@@ -19,56 +18,42 @@
         mainVideo.play().catch(function() {});
     }
 
-    // requestAnimationFrame으로 프레임 단위 감시
-    function checkVideoTime() {
-        if (!mainVideo.duration) {
-            requestAnimationFrame(checkVideoTime);
-            return;
-        }
-
-        const timeLeft = mainVideo.duration - mainVideo.currentTime;
-
-        // 1. 영상 종료 0.4초 전: 뒤에 있는 루프 영상 미리 재생 (아직 안보임)
-        if (timeLeft <= 0.4 && !loopStarted) {
-            loopVideo.play();
-            loopStarted = true;
-        }
-
-        // 2. 영상 종료 0.15초 전: 루프 페이드인 + 메인 페이드아웃 동시 시작
-        if (timeLeft <= 0.15) {
-            loopVideo.classList.add('visible');
-            mainVideo.classList.add('fade-out');
-
-            if (naverBtn) {
-                naverBtn.classList.add('visible');
-            }
-            return;
-        }
-
-        requestAnimationFrame(checkVideoTime);
-    }
-
-    // 영상 재생 시작과 함께 감시 시작
-    mainVideo.addEventListener('play', function() {
-        requestAnimationFrame(checkVideoTime);
-    });
-
-    // 안전장치: 혹시라도 감시가 실패했을 때를 대비
+    // Video A 종료 시 → Video B로 즉시 교체 (Event Driven Switch)
     mainVideo.addEventListener('ended', function() {
-        if (!loopStarted) {
-            loopVideo.classList.add('visible');
-            loopVideo.play();
-        }
+        // 1. Video A 숨김
         mainVideo.classList.add('fade-out');
+
+        // 2. Video B 보여주기 + 재생 시작
+        loopVideo.classList.add('visible');
+        loopVideo.play().catch(function() {});
+
+        // 3. 네이버 버튼 표시
         if (naverBtn) {
             naverBtn.classList.add('visible');
         }
     });
 
-    // 이미 로드됐으면 바로 재생
-    if (mainVideo.readyState >= 3) {
+    // 두 영상 모두 로드 대기 후 시작
+    let mainReady = mainVideo.readyState >= 3;
+    let loopReady = loopVideo.readyState >= 3;
+
+    function checkAndStart() {
+        if (mainReady && loopReady) {
+            startVideo();
+        }
+    }
+
+    if (mainReady && loopReady) {
         startVideo();
     } else {
-        mainVideo.addEventListener('canplaythrough', startVideo, { once: true });
+        mainVideo.addEventListener('canplaythrough', function() {
+            mainReady = true;
+            checkAndStart();
+        }, { once: true });
+
+        loopVideo.addEventListener('canplaythrough', function() {
+            loopReady = true;
+            checkAndStart();
+        }, { once: true });
     }
 })();
