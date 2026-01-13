@@ -95,28 +95,24 @@ html, body {
     opacity: 0;
 }
 
-/* 루프 영상 - 뒤에 배치, 처음엔 숨김 */
+/* 루프 영상 - 뒤에 배치, Hard Cut 전환 */
 .loop-video {
     z-index: 1;
-    transition: opacity 0.2s linear;
+    /* transition 없음 - Hard Cut */
 }
 
 .loop-video.visible {
     opacity: 1;
 }
 
-/* 메인 영상 - 앞에 배치, 페이드아웃 */
+/* 메인 영상 - 앞에 배치, Hard Cut 전환 */
 .main-video {
     z-index: 2;
-    transition: opacity 0.2s linear;
+    /* transition 없음 - Hard Cut (visibility로 즉시 전환) */
 }
 
 .main-video.visible {
     opacity: 1;
-}
-
-.main-video.fade-out {
-    opacity: 0;
 }
 
 /* ========== 네이버 버튼 ========== */
