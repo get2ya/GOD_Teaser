@@ -107,31 +107,28 @@ html, body {
     left: 50%;
     z-index: 1000;
     opacity: 0;
-    transform: translate(-50%, 25vh); /* 초기: 더 아래에서 시작 */
+    transform: translate(-50%, 32vh); /* 초기: 더 아래에서 시작 */
     pointer-events: none;
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 .naver-btn.visible {
     opacity: 1;
-    transform: translate(-50%, 15vh); /* 최종: 중앙에서 15vh 아래 */
+    transform: translate(-50%, 22vh); /* 최종: 중앙에서 22vh 아래 (기존 15vh + 7vh) */
     pointer-events: auto;
 }
 
 .naver-btn img {
-    height: 48px;
+    height: 67px; /* 48px × 1.4 = 67px (40% 확대) */
     width: auto;
     display: block;
-    /* 검정→녹색 필터 + 그림자 */
-    filter: sepia(1) saturate(5) hue-rotate(85deg) brightness(0.9)
-            drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
     transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .naver-btn:hover img {
     transform: scale(1.05);
-    filter: sepia(1) saturate(5) hue-rotate(85deg) brightness(1)
-            drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
 }
 
 .naver-btn:active img {
@@ -158,7 +155,7 @@ html, body {
     }
 
     .naver-btn img {
-        height: 48px;
+        height: 67px;
     }
 }
 
@@ -183,7 +180,7 @@ html, body {
     }
 
     .naver-btn img {
-        height: 44px;
+        height: 62px;
     }
 }
 
@@ -212,12 +209,12 @@ html, body {
         min-height: unset;
     }
 
-    /* 모바일: 중앙에서 20vh 아래 (영상 60vh 기준 로고 아래) */
+    /* 모바일: 중앙에서 25vh 아래 */
     .naver-btn.visible {
-        transform: translate(-50%, 20vh);
+        transform: translate(-50%, 25vh);
     }
 
     .naver-btn img {
-        height: 36px;
+        height: 50px;
     }
 }
