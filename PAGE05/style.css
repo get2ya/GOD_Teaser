@@ -107,14 +107,14 @@ html, body {
     left: 50%;
     z-index: 1000;
     opacity: 0;
-    transform: translate(-50%, 32vh); /* 초기: 더 아래에서 시작 */
+    transform: translate(-50%, 43vh); /* 초기: 더 아래에서 시작 */
     pointer-events: none;
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 .naver-btn.visible {
     opacity: 1;
-    transform: translate(-50%, 22vh); /* 최종: 중앙에서 22vh 아래 (기존 15vh + 7vh) */
+    transform: translate(-50%, 33vh); /* 최종: 중앙에서 33vh 아래 (22vh + 11vh = 50% 추가) */
     pointer-events: auto;
 }
 
