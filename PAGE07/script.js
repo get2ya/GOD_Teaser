@@ -75,9 +75,8 @@
     // A영상 종료 시 B영상으로 전환
     mainVideo.addEventListener('ended', function() {
         // A영상만 숨기면 뒤에서 재생 중인 B영상이 보임
+        // B영상은 이미 정확한 타이밍에 시작했으므로 리셋하지 않음
         mainVideo.style.display = 'none';
-        // B영상 처음으로 리셋 (정확한 싱크)
-        loopVideo.currentTime = 0;
     });
 
     // 초기화: 모든 리소스 로드 후 시퀀스 시작
