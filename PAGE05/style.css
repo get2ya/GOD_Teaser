@@ -103,18 +103,18 @@ html, body {
 /* ========== 네이버 버튼 ========== */
 .naver-btn {
     position: fixed;
-    top: 24px;
-    right: 24px;
+    top: 50%;
+    left: 50%;
     z-index: 1000;
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translate(-50%, 25vh); /* 초기: 더 아래에서 시작 */
     pointer-events: none;
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 .naver-btn.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, 15vh); /* 최종: 중앙에서 15vh 아래 */
     pointer-events: auto;
 }
 
@@ -122,13 +122,16 @@ html, body {
     height: 48px;
     width: auto;
     display: block;
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+    /* 검정→녹색 필터 + 그림자 */
+    filter: sepia(1) saturate(5) hue-rotate(85deg) brightness(0.9)
+            drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
     transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .naver-btn:hover img {
     transform: scale(1.05);
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+    filter: sepia(1) saturate(5) hue-rotate(85deg) brightness(1)
+            drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
 }
 
 .naver-btn:active img {
@@ -154,11 +157,6 @@ html, body {
         height: 100vh;
     }
 
-    .naver-btn {
-        top: 24px;
-        right: 24px;
-    }
-
     .naver-btn img {
         height: 48px;
     }
@@ -182,11 +180,6 @@ html, body {
     .video-content {
         width: 100vw;
         height: 100vh;
-    }
-
-    .naver-btn {
-        top: 20px;
-        right: 20px;
     }
 
     .naver-btn img {
@@ -219,9 +212,9 @@ html, body {
         min-height: unset;
     }
 
-    .naver-btn {
-        top: 16px;
-        right: 16px;
+    /* 모바일: 중앙에서 20vh 아래 (영상 60vh 기준 로고 아래) */
+    .naver-btn.visible {
+        transform: translate(-50%, 20vh);
     }
 
     .naver-btn img {
