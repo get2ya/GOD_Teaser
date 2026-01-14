@@ -7,12 +7,12 @@
     const mainVideo = document.getElementById('main-video');
     const loopVideo = document.getElementById('loop-video');
     const bgGroup = document.querySelector('.background-group');
+    const dimOverlay = document.getElementById('video-dim-overlay');
 
     if (!mainVideo || !loopVideo) return;
 
     // 플래그
     let loopStarted = false;
-    let buttonShown = false;
     let animFrameId = null;
 
     // 배경 이미지 프리로드
@@ -47,8 +47,11 @@
         });
     }
 
-    // B영상 시작 타이밍 (A영상 종료 몇 초 전)
-    const B_START_BEFORE = 1; // 1초 전
+    // B영상 시작 타이밍 (A영상 종료 몇 초 전) - 1프레임 = 약 0.033초
+    const B_START_BEFORE = 0.033;
+
+    // 어둡기 오버레이 활성화 여부
+    let dimStarted = false;
 
     // 정밀 타이밍 체크 (requestAnimationFrame)
     function checkTiming() {
@@ -59,18 +62,22 @@
 
         const remaining = mainVideo.duration - mainVideo.currentTime;
 
-        // 버튼: 1초 전에 표시
-        if (!buttonShown && remaining <= 1 && naverBtn) {
-            buttonShown = true;
-            naverBtn.classList.add('visible');
-        }
+        // 어둡기 오버레이: 비활성화
+        // if (!dimStarted && remaining <= 1 && dimOverlay) {
+        //     dimStarted = true;
+        //     dimOverlay.classList.add('active');
+        // }
 
-        // B영상: A영상 종료 1초 전에 시작, B영상 8초(duration-1) 위치부터
+        // B영상: A영상 종료 0.033초(1프레임) 전에 시작
         if (!loopStarted && remaining <= B_START_BEFORE) {
             loopStarted = true;
-            // B영상을 끝에서 1초 전 위치(8초)부터 시작
+            console.log('=== B영상 시작 ===');
+            console.log('A영상 currentTime:', mainVideo.currentTime.toFixed(3));
+            console.log('A영상 remaining:', remaining.toFixed(3));
+            // B영상을 끝에서 0.033초 전 위치부터 시작
             loopVideo.currentTime = loopVideo.duration - B_START_BEFORE;
             loopVideo.play().catch(function() {});
+            console.log('B영상 시작 위치:', loopVideo.currentTime.toFixed(3));
         }
 
         // A영상이 아직 재생 중이면 계속 체크
@@ -84,20 +91,30 @@
         // A영상 보이게 + 재생
         mainVideo.classList.add('visible');
         mainVideo.play().catch(function() {});
-        // B영상은 보이게 해두지만 아직 재생 안 함
+        // B영상은 뒤 레이어에서 보이는 상태로 대기 (seamless 전환 위해)
         loopVideo.style.opacity = '1';
         // 정밀 타이밍 체크 시작
         animFrameId = requestAnimationFrame(checkTiming);
     }
 
-    // A영상 종료 시 B영상으로 전환
+    // A영상 종료 시 즉시 숨김 → B영상이 보임
     mainVideo.addEventListener('ended', function() {
         // 타이밍 체크 중지
         if (animFrameId) {
             cancelAnimationFrame(animFrameId);
         }
-        // A영상만 숨기면 뒤에서 재생 중인 B영상이 보임
+        // 타임라인 로그
+        console.log('=== A영상 ended 이벤트 ===');
+        console.log('A영상 duration:', mainVideo.duration.toFixed(3));
+        console.log('A영상 currentTime:', mainVideo.currentTime.toFixed(3));
+        console.log('B영상 currentTime:', loopVideo.currentTime.toFixed(3));
+        // A영상 즉시 숨김 (B영상은 이미 뒤에서 재생 중)
         mainVideo.style.display = 'none';
+        console.log('>>> A영상 숨김 처리 완료 <<<');
+        // 네이버 버튼: 비활성화
+        // if (naverBtn) {
+        //     naverBtn.classList.add('visible');
+        // }
     });
 
     // 초기화: 모든 리소스 로드 후 시퀀스 시작
