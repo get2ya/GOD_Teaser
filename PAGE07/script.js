@@ -41,11 +41,14 @@
         });
     }
 
-    // A영상 재생 시작
+    // 영상 재생 시작
     function startPlayback() {
-        // A영상만 보이게 + 재생
+        // A영상 보이게 + 재생
         mainVideo.classList.add('visible');
         mainVideo.play().catch(function() {});
+        // B영상도 미리 재생 (뒤에서 대기, 안 보임)
+        loopVideo.style.opacity = '1';
+        loopVideo.play().catch(function() {});
     }
 
     // A영상 종료 1초 전에 버튼 표시
@@ -58,14 +61,10 @@
         }
     });
 
-    // A영상 종료 시 B영상으로 교체
+    // A영상 종료 시 B영상으로 전환
     mainVideo.addEventListener('ended', function() {
-        // A영상 숨김
+        // A영상만 숨기면 뒤에서 재생 중인 B영상이 보임
         mainVideo.style.display = 'none';
-        // B영상 즉시 보이기 + 재생 (페이드인 없음)
-        loopVideo.style.opacity = '1';
-        loopVideo.currentTime = 0;
-        loopVideo.play().catch(function() {});
     });
 
     // 초기화: 모든 리소스 로드 후 시퀀스 시작
