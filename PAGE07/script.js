@@ -48,7 +48,10 @@
 
     // 영상 재생 시작
     function startPlayback() {
+        // 둘 다 보이게
         mainVideo.classList.add('visible');
+        loopVideo.classList.add('visible');
+        // 재생
         mainVideo.play().catch(function() {});
         loopVideo.currentTime = 0;
         loopVideo.play().catch(function() {});

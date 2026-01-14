@@ -94,9 +94,13 @@ html, body {
     will-change: opacity;
 }
 
-/* 루프 영상 (B) - 뒤에 배치, 처음부터 보임 */
+/* 루프 영상 (B) - 뒤에 배치, 초기에는 숨김 */
 .loop-video {
     z-index: 1;
+    opacity: 0;
+}
+
+.loop-video.visible {
     opacity: 1;
 }
 
