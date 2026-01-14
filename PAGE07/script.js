@@ -88,7 +88,7 @@
             bgGroup.classList.add('visible');
         }
 
-        // 배경 페이드인 완료 후(0.5초) 영상 시작
-        setTimeout(startPlayback, 500);
+        // 배경 페이드인 완료 후(0.7초) 영상 시작
+        setTimeout(startPlayback, 700);
     });
 })();
