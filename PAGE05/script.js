@@ -1,13 +1,46 @@
-// Valen 애니메이션 페이지
+// GOH 타이틀 영상 페이지 (반응형 영상 소스)
 (function() {
     const naverBtn = document.querySelector('.naver-btn');
-    const valenVideo = document.getElementById('valen-video');
+    const mainVideo = document.getElementById('main-video');
     const bgGroup = document.querySelector('.background-group');
 
-    if (!valenVideo) return;
+    if (!mainVideo) return;
+
+    // 디바이스에 따른 영상 소스 선택
+    // 폴드7 이상 (화면 너비 768px 이상): 1080p
+    // 일반 모바일: 720p
+    function getVideoSource() {
+        const screenWidth = window.screen.width;
+        const isHighRes = screenWidth >= 768;
+
+        // iOS/Mac 감지
+        const isApple = /iPhone|iPad|iPod|Mac/i.test(navigator.userAgent);
+
+        if (isHighRes) {
+            return isApple
+                ? '../resource/MV/GOH_1080.mov'
+                : '../resource/MV/GOH_1080.webm';
+        } else {
+            return isApple
+                ? '../resource/MV/GOH_720.mov'
+                : '../resource/MV/GOH_720.webm';
+        }
+    }
+
+    // 영상 소스 설정
+    function setVideoSource() {
+        const source = document.createElement('source');
+        const videoPath = getVideoSource();
+
+        source.src = videoPath;
+        source.type = videoPath.endsWith('.mov') ? 'video/quicktime' : 'video/webm';
+
+        mainVideo.appendChild(source);
+        mainVideo.load();
+    }
 
     // 영상 종료 시 네이버 버튼 표시
-    valenVideo.addEventListener('ended', function() {
+    mainVideo.addEventListener('ended', function() {
         if (naverBtn) {
             naverBtn.classList.add('visible');
         }
@@ -21,14 +54,17 @@
         }
 
         // 영상 페이드인 + 재생
-        valenVideo.classList.add('visible');
-        valenVideo.play().catch(function() {});
+        mainVideo.classList.add('visible');
+        mainVideo.play().catch(function() {});
     }
 
-    // 영상이 이미 로드되었는지 확인
-    if (valenVideo.readyState >= 3) {
+    // 초기화
+    setVideoSource();
+
+    // 영상 로드 대기
+    if (mainVideo.readyState >= 3) {
         startSequence();
     } else {
-        valenVideo.addEventListener('canplaythrough', startSequence, { once: true });
+        mainVideo.addEventListener('canplaythrough', startSequence, { once: true });
     }
 })();
