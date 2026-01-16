@@ -40,10 +40,10 @@ html, body {
     pointer-events: none;
 }
 
-/* background.jpg */
+/* background.webp */
 .bg-photo {
     z-index: 0;
-    background: url('../resource/background.jpg') center center / cover no-repeat;
+    background: url('../resource/background.webp') center center / cover no-repeat;
 }
 
 /* big_change.png - 가로 기준 */
@@ -113,7 +113,7 @@ html, body {
 }
 
 .video-dim-overlay.active {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.15);
 }
 
 .loop-video.visible {

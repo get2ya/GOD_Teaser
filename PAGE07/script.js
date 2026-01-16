@@ -19,8 +19,8 @@
     function preloadImages() {
         return new Promise(function(resolve) {
             const images = [
-                '../resource/background.jpg',
-                '../resource/big_change.png',
+                '../resource/background.webp',
+                '../resource/big_change.webp',
                 '../resource/big_2.png'
             ];
             let loaded = 0;
@@ -84,10 +84,25 @@
 
         // B영상: A영상 종료 0.033초(1프레임) 전에 시작
         if (!loopStarted && remaining <= B_START_BEFORE) {
+            // B영상 로드 체크 (readyState >= 3: canplay 이상)
+            if (loopVideo.readyState < 3) {
+                console.log('B영상 아직 로딩 중... readyState:', loopVideo.readyState);
+                // 로드 완료까지 대기 후 재시도
+                loopVideo.addEventListener('canplay', function() {
+                    if (!loopStarted) {
+                        startLoopVideo();
+                    }
+                }, { once: true });
+                return;
+            }
+            startLoopVideo();
+        }
+
+        function startLoopVideo() {
             loopStarted = true;
             console.log('=== B영상 시작 ===');
             console.log('A영상 currentTime:', mainVideo.currentTime.toFixed(3));
-            console.log('A영상 remaining:', remaining.toFixed(3));
+            console.log('A영상 remaining:', (mainVideo.duration - mainVideo.currentTime).toFixed(3));
             // B영상 opacity 1로 변경 (이제서야 보이게)
             loopVideo.style.opacity = '1';
             // B영상을 끝에서 0.033초 전 위치부터 시작
@@ -133,11 +148,11 @@
         // }
     });
 
-    // 초기화: 모든 리소스 로드 후 시퀀스 시작
+    // 초기화: 배경 + A영상만 로드 후 시작 (B영상은 백그라운드 로드)
     Promise.all([
         preloadImages(),
-        waitForVideo(mainVideo),
-        waitForVideo(loopVideo)
+        waitForVideo(mainVideo)
+        // loopVideo는 A영상 재생 중(약 5초)에 백그라운드 로드
     ]).then(function() {
         // 배경 페이드인
         if (bgGroup) {
