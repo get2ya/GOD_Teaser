@@ -74,6 +74,11 @@
             }
             if (naverBtn) {
                 naverBtn.classList.add('visible');
+                // 등장 transition 완료 후(2초) 맥동 효과 시작
+                setTimeout(function() {
+                    naverBtn.classList.add('pulsing');
+                    console.log('=== 네이버 버튼 맥동 시작 ===');
+                }, 2000);
             }
         }
 

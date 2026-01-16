@@ -149,8 +149,24 @@ html, body {
     pointer-events: auto;
 }
 
+/* 맥동 효과 (등장 완료 후 적용) */
+.naver-btn.pulsing img {
+    animation: btnPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes btnPulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+    }
+    50% {
+        transform: scale(1.03);
+        filter: drop-shadow(0 4px 16px rgba(255, 255, 255, 0.15));
+    }
+}
+
 .naver-btn img {
-    height: 100px;
+    height: 90px;
     width: auto;
     display: block;
     filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
@@ -186,7 +202,7 @@ html, body {
     }
 
     .naver-btn img {
-        height: 100px;
+        height: 90px;
     }
 }
 
@@ -211,7 +227,7 @@ html, body {
     }
 
     .naver-btn img {
-        height: 93px;
+        height: 84px;
     }
 }
 
@@ -246,6 +262,6 @@ html, body {
     }
 
     .naver-btn img {
-        height: 75px;
+        height: 68px;
     }
 }
