@@ -11,9 +11,10 @@
 
     if (!mainVideo || !loopVideo) return;
 
-    // 모바일 감지 (안드로이드 크롬)
+    // 모바일 감지 (안드로이드 크롬 + iOS)
     function isMobile() {
-        return /Android/i.test(navigator.userAgent) && /Chrome/i.test(navigator.userAgent);
+        const ua = navigator.userAgent;
+        return (/Android/i.test(ua) && /Chrome/i.test(ua)) || /iPhone|iPad|iPod/i.test(ua);
     }
 
     // 모바일이면 영상 소스 변경
