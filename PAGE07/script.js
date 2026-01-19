@@ -148,11 +148,10 @@
         // }
     });
 
-    // 초기화: 배경 + A/B영상 모두 로드 후 시작
+    // 초기화: 배경 + A영상 로드 후 시작 (B영상은 preload="auto"로 백그라운드 다운로드)
     Promise.all([
         preloadImages(),
-        waitForVideo(mainVideo),
-        waitForVideo(loopVideo)
+        waitForVideo(mainVideo)
     ]).then(function() {
         // 배경 페이드인
         if (bgGroup) {
