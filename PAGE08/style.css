@@ -45,6 +45,29 @@
     transition: width 0.1s linear;
 }
 
+/* 스캔라인: 진행 경계에 밝은 세로선 */
+.loading-scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to right,
+        transparent,
+        rgba(255, 255, 255, 0.9),
+        rgba(100, 200, 255, 0.7),
+        transparent);
+    box-shadow: 0 0 15px rgba(100, 200, 255, 0.8),
+                0 0 30px rgba(100, 200, 255, 0.5),
+                0 0 45px rgba(100, 200, 255, 0.3);
+    animation: scanPulse 0.5s ease-in-out infinite;
+}
+
+@keyframes scanPulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
 /* ========== 기본 리셋 ========== */
 * {
     margin: 0;
