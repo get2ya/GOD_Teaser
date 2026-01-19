@@ -148,11 +148,11 @@
         // }
     });
 
-    // 초기화: 배경 + A영상만 로드 후 시작 (B영상은 백그라운드 로드)
+    // 초기화: 배경 + A/B영상 모두 로드 후 시작
     Promise.all([
         preloadImages(),
-        waitForVideo(mainVideo)
-        // loopVideo는 A영상 재생 중(약 5초)에 백그라운드 로드
+        waitForVideo(mainVideo),
+        waitForVideo(loopVideo)
     ]).then(function() {
         // 배경 페이드인
         if (bgGroup) {
