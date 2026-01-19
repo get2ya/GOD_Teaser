@@ -11,10 +11,11 @@
 
     if (!mainVideo || !loopVideo) return;
 
-    // 모바일 감지 (안드로이드 크롬 + iOS)
+    // 모바일 감지 (안드로이드 크롬 + iPhone만, iPad 제외)
     function isMobile() {
         const ua = navigator.userAgent;
-        return (/Android/i.test(ua) && /Chrome/i.test(ua)) || /iPhone|iPad|iPod/i.test(ua);
+        // iPad는 PC 영상 사용 (화면이 충분히 큼)
+        return (/Android/i.test(ua) && /Chrome/i.test(ua)) || (/iPhone|iPod/i.test(ua) && !/iPad/i.test(ua));
     }
 
     // 모바일이면 영상 소스 변경
