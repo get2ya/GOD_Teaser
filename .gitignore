@@ -1,2 +1,17 @@
 # Large video files (exceed GitHub 100MB limit)
 resource/MV/*.mov
+
+# Exclude all except PAGE09
+PAGE01/
+PAGE02/
+PAGE03/
+PAGE04/
+PAGE05/
+PAGE06/
+PAGE07/
+PAGE08/
+PAGE10/
+resource/
+claude.md
+nul
+index.html
