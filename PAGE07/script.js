@@ -99,10 +99,12 @@
         });
     }
 
-    // B영상 시작 타이밍 (A영상 종료 몇 초 전) - 1프레임 = 약 0.033초
-    const B_START_BEFORE = 0.033;
+    // B영상 시작 타이밍 (A영상 종료 몇 초 전)
+    // iOS는 seek/play 동기화가 느려서 더 여유있는 타이밍 필요
+    const B_START_BEFORE = isIOS() ? 0.15 : 0.033;
     // 네이버 버튼 + dim 오버레이 시작 타이밍 (A영상 종료 몇 초 전)
-    const BUTTON_START_BEFORE = 0.5;
+    // iOS는 애니메이션 오버헤드가 커서 B영상 시작과 시간적 분리 필요
+    const BUTTON_START_BEFORE = isIOS() ? 1.2 : 0.5;
 
     // 플래그
     let buttonStarted = false;
@@ -155,12 +157,23 @@
             console.log('=== B영상 시작 ===');
             console.log('A영상 currentTime:', mainVideo.currentTime.toFixed(3));
             console.log('A영상 remaining:', (mainVideo.duration - mainVideo.currentTime).toFixed(3));
-            // B영상 opacity 1로 변경 (이제서야 보이게)
-            loopVideo.style.opacity = '1';
-            // B영상을 끝에서 0.033초 전 위치부터 시작
+
+            // B영상을 끝에서 B_START_BEFORE초 전 위치로 이동
             loopVideo.currentTime = loopVideo.duration - B_START_BEFORE;
-            loopVideo.play().catch(function() {});
-            console.log('B영상 시작 위치:', loopVideo.currentTime.toFixed(3));
+
+            if (isIOS()) {
+                // iOS: seek 완료 후 opacity 변경 + play (동기화 문제 방지)
+                loopVideo.addEventListener('seeked', function() {
+                    loopVideo.style.opacity = '1';
+                    loopVideo.play().catch(function() {});
+                    console.log('B영상 시작 위치 (iOS seeked):', loopVideo.currentTime.toFixed(3));
+                }, { once: true });
+            } else {
+                // Windows/Android: 기존 방식 (즉시 실행)
+                loopVideo.style.opacity = '1';
+                loopVideo.play().catch(function() {});
+                console.log('B영상 시작 위치:', loopVideo.currentTime.toFixed(3));
+            }
         }
 
         // A영상이 아직 재생 중이면 계속 체크
